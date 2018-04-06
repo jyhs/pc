@@ -141,8 +141,8 @@ export default {
                 });
                 if (result.status === 'ok') {
                     this.qrCodeVisible = true;
-                    this.qrCodeUrl = `http://www.coral123.com/image/user/private/${group.id}.png`;
-                    this.privateUrl = `http://www.coral123.com/#/buy/${group.id}/page`;
+                    this.qrCodeUrl = `https://111.231.136.250/image/user/private/${group.id}.png`;
+                    this.privateUrl = `https://111.231.136.250/#/buy/${group.id}/page`;
                 }
             } catch (error) {
                 console.error(error);

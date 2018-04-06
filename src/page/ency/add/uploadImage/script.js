@@ -49,7 +49,7 @@ export default {
                     this.maskShow.push({
                         [index]: false
                     });
-                    return 'http://www.coral123.com/image/uploads' + image;
+                    return 'https://111.231.136.250/image/uploads' + image;
                 });
                 this.maskShow.push({
                     [this.imageList.length]: false
@@ -106,7 +106,7 @@ export default {
             this.loading(false);
 
             if (result.status === 'ok') {
-                this.imgPath = `http://www.coral123.com/image/uploads${result.imgPath}`;
+                this.imgPath = `https://111.231.136.250/image/uploads${result.imgPath}`;
                 this.initData();
                 this.$message({
                     message: `上传${file.name}成功`,
