@@ -530,7 +530,7 @@ export default {
             this.calculateCartCount();
             this.updateDetailsImg();
             const input_parent = $(".one-cart-ency");
-            if(input_parent.length==1){
+            if(input_parent.length>=1){
                 const inputs = input_parent.find("input");
                 if(inputs.length>=1){
                     $.each(inputs, function(i,n){

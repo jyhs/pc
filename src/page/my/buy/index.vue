@@ -150,6 +150,7 @@
                                         <span style="color: #d0021b">￥{{detail.price}}</span>
                                         <el-input-number
                                                 v-model="detail.count"
+                                                readonly="readonly"
                                                 :min="1"
                                                 :max="detail.limits"
                                                 size="small"
