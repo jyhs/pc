@@ -1,3 +1,4 @@
+export const BASE_PATH = 'http://111.231.136.250';
 export const API_BASE_PATH = 'http://111.231.136.250:1433';
 export const IMAGE_BASE_PATH = 'http://111.231.136.250/image/uploads';
 export const SMALL_IMAGE_BASE_PATH = 'http://111.231.136.250/image/uploads/small';

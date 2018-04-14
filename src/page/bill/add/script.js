@@ -92,7 +92,8 @@ export default {
             this.loading(true);
             try {
                 this.usersPfs = (await this.getUserList({
-                    type1: 'pfs'
+                    type1: 'pfs',
+                    size: 1000
                 }))['users'];
             } catch(error) {
                 console.error(error);

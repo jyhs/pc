@@ -1,7 +1,8 @@
 import {mapGetters, mapActions} from 'vuex';
-import {localStorageHasKey, saveToLocalStorage, getFromLocalStorage, mapKey, mapCode} from '@/utils/common';
+import {localStorageHasKey, saveToLocalStorage, getFromLocalStorage, compile, mapKey, mapCode} from '@/utils/common';
 import {SMALL_IMAGE_BASE_PATH, AVATAR_BASE_PATH, Seawater_Pay_Types, Seawater_Yes_No,
-    Seawater_Provinces, Seawater_Levels} from '@/constants/index';
+    Seawater_Provinces, Seawater_Levels
+} from '@/constants/index';
 
 export default {
     data() {
@@ -159,7 +160,7 @@ export default {
                     this.$router.push({
                         name: actionType,
                         params: {
-                            groupId: row.id
+                            groupId: compile(`${row.id}`)
                         }
                     });
                     break;

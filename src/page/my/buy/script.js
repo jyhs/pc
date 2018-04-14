@@ -1,7 +1,9 @@
 import {mapGetters, mapActions} from 'vuex';
 import _ from 'lodash';
-import {isEmpty} from '@/utils/common';
-import {SMALL_IMAGE_BASE_PATH, TAOBAO_QR_BASE_PATH, WECHAT_QR_BASE_PATH} from '@/constants/index';
+import {isEmpty, uncompile} from '@/utils/common';
+import {Seawater_Now_Province, SMALL_IMAGE_BASE_PATH, TAOBAO_QR_BASE_PATH,
+    WECHAT_QR_BASE_PATH
+} from '@/constants/index';
 
 const PayBasePath = {
     zfb: TAOBAO_QR_BASE_PATH,
@@ -9,7 +11,7 @@ const PayBasePath = {
 };
 
 export default {
-    data () {
+    data() {
         const telephoneValidator = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入手机号'));
@@ -76,7 +78,8 @@ export default {
         ]),
 
         async initData() {
-            const {groupId} = this.$route.params;
+            let {groupId} = this.$route.params;
+            groupId = Number(uncompile(groupId));
             const userId = parseInt(window.localStorage.getItem('SEAWATER_USER_ID'));
 
             this.loading(true);
@@ -184,7 +187,7 @@ export default {
                     this.getCartDetailsIds();
                     this.calculateCartCount();
                     this.updateDetailsImg();
-                }else{
+                } else {
                     this.$message({
                         type: 'warning',
                         message: checkResponse.status
@@ -230,12 +233,12 @@ export default {
                             const userId = parseInt(window.localStorage.getItem('SEAWATER_USER_ID'));
                             window.localStorage.setItem(`SEAWATER_CART_DETAILS_${userId}_${this.group.id}`, JSON.stringify(this.detailsInCart));
                         }
-                    }else{
+                    } else {
                         this.$message({
                             type: 'warning',
                             message: checkResponse.status
                         });
-                        detail.count=detail.count-1;
+                        detail.count = detail.count - 1;
                     }
                 } catch (error) {
                     console.error(error);
@@ -423,22 +426,23 @@ export default {
             this.$refs['cartForm'].validate(async (valid) => {
                 if (valid) {
                     this.loading(true);
-                    const h = this.$createElement;  
+                    const h = this.$createElement;
                     const error_message = [];
                     const newDetailsInCart = [];
                     try {
-                        if (!this.currentUser.phone) {
-                            const res = await this.updateUserPhone({
-                                id: this.currentUser.id,
+                        const nowProvince = window.localStorage.getItem(Seawater_Now_Province)
+                            || this.currentUser.province || 'sh';
+
+                        const res = await this.updateUserPhone({
+                            id: this.currentUser.id,
+                            phone: this.cartForm.telephone,
+                            province: nowProvince
+                        });
+                        if (res.status === 'ok') {
+                            this.updateCurrentUser(_.extend({}, this.currentUser, {
                                 phone: this.cartForm.telephone
-                            });
-                            if (res.status === 'ok') {
-                                this.updateCurrentUser(_.extend({}, this.currentUser, {
-                                    phone: this.cartForm.telephone
-                                }));
-                            }
+                            }));
                         }
-                      
 
                         const result = await this.updateCart({
                             id: this.cart.id,
@@ -448,7 +452,6 @@ export default {
                             status: 1,
                         });
                         if (result.status === 'ok') {
-                            
                             for (let detail of this.detailsInCart) {
                                 try {
                                     const result = await this.updateCartDetail({
@@ -457,13 +460,12 @@ export default {
                                         bill_detail_id: detail.id,
                                         bill_detail_num: detail.count
                                     });
-                                    
+
                                     if (result.status !== 'ok') {
-                                        error_message.push(h('p',null,detail.name))
-                                    }else{
+                                        error_message.push(h('p', null, detail.name))
+                                    } else {
                                         newDetailsInCart.push(detail)
                                     }
-                                   
                                 } catch (error) {
                                     console.error(error);
                                     break;
@@ -475,35 +477,30 @@ export default {
                     }
                     this.loading(false);
 
-                    if(error_message.length>0){
-                        error_message.push(h('p',null,"如果您愿意可以根据当前实时库存继续购买!"))
-                        error_message.push(h('p',null,""))
-                        this.$msgbox({  
-                            title: '以下海鱼或珊瑚，库存不足！',  
-                            message: h('div',null, error_message),  
-                            confirmButtonText: '确定',  
-                          }).then(action => {
+                    if (error_message.length > 0) {
+                        error_message.push(h('p', null, "如果您愿意可以根据当前实时库存继续购买!"));
+                        error_message.push(h('p', null, ""));
+                        this.$msgbox({
+                            title: '以下海鱼或珊瑚，库存不足！',
+                            message: h('div', null, error_message),
+                            confirmButtonText: '确定',
+                        }).then(() => {
                             this.detailsInCart = newDetailsInCart;
                             const userId = parseInt(window.localStorage.getItem('SEAWATER_USER_ID'));
                             window.localStorage.setItem(`SEAWATER_CART_DETAILS_${userId}_${this.group.id}`, JSON.stringify(this.detailsInCart));
                             this.$message({
                                 type: 'success',
                                 message: `其他海鱼或珊瑚提交成功!`
-                             }); 
-                          });
-                    }else{
+                            });
+                        });
+                    } else {
                         this.$message({
                             type: 'success',
                             message: `购物车提交成功!`
-                         });
+                        });
                     }
-
                     this.groupCount = (await this.getCountById({id: groupId}))[0].sum;
                     this.detailList = await this.getDetailsByBillId({id: this.group.bill_id});
-                        
-
-                         
-
                 } else {
                     this.$notify.error({
                         title: '错误',
@@ -530,11 +527,11 @@ export default {
             this.calculateCartCount();
             this.updateDetailsImg();
             const input_parent = $(".one-cart-ency");
-            if(input_parent.length>=1){
+            if (input_parent.length >= 1) {
                 const inputs = input_parent.find("input");
-                if(inputs.length>=1){
-                    $.each(inputs, function(i,n){
-                        $(this).attr("readonly","readonly")
+                if (inputs.length >= 1) {
+                    $.each(inputs, function (i, n) {
+                        $(this).attr("readonly", "readonly");
                     })
                 }
             }

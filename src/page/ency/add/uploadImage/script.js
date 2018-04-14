@@ -1,6 +1,7 @@
 import {mapActions} from 'vuex';
 import headTop from '@/components/headTop';
 import {toFormData} from '@/utils/common';
+import {IMAGE_BASE_PATH} from '@/constants/index';
 
 export default {
     data () {
@@ -49,7 +50,7 @@ export default {
                     this.maskShow.push({
                         [index]: false
                     });
-                    return 'https://111.231.136.250/image/uploads' + image;
+                    return `${IMAGE_BASE_PATH}${image}`;
                 });
                 this.maskShow.push({
                     [this.imageList.length]: false
@@ -106,7 +107,7 @@ export default {
             this.loading(false);
 
             if (result.status === 'ok') {
-                this.imgPath = `https://111.231.136.250/image/uploads${result.imgPath}`;
+                this.imgPath = `${IMAGE_BASE_PATH}${result.imgPath}`;
                 this.initData();
                 this.$message({
                     message: `上传${file.name}成功`,

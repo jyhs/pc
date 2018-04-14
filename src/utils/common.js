@@ -151,6 +151,32 @@ export const fireClickEventById = id => {
     fireOnThis.dispatchEvent(evObj);
 };
 
+/**
+ * @param code
+ * @returns {string}
+ */
+export const compile = (code) => {
+    let c = String.fromCharCode(code.charCodeAt(0)+code.length);
+    for(let i = 1; i < code.length; i++){
+        c += String.fromCharCode(code.charCodeAt(i) + code.charCodeAt(i - 1));
+    }
+    c = escape(c.split('').join(' '));
+    return c;
+};
+
+/**
+ * @param code
+ * @returns {string}
+ */
+export const uncompile = (code) => {
+    code = unescape(code).split(' ').join('');
+    let c = String.fromCharCode(code.charCodeAt(0) - code.length);
+    for(let i = 1; i < code.length; i++){
+        c += String.fromCharCode(code.charCodeAt(i) - c.charCodeAt(i - 1));
+    }
+    return c;
+};
+
 export const mapFunctions = {
     mapCode,
     mapKey

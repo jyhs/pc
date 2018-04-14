@@ -1,6 +1,6 @@
 import {mapGetters, mapActions} from 'vuex';
-import {GROUP_EXCEL_BASE_PATH} from '@/constants/index';
-import {formatDateParam, formatDateTimeParam, isEmpty} from '@/utils/common';
+import {BASE_PATH, GROUP_EXCEL_BASE_PATH} from '@/constants/index';
+import {formatDateParam, formatDateTimeParam, isEmpty, compile} from '@/utils/common';
 
 export default {
     data() {
@@ -141,8 +141,8 @@ export default {
                 });
                 if (result.status === 'ok') {
                     this.qrCodeVisible = true;
-                    this.qrCodeUrl = `https://111.231.136.250/image/user/private/${group.id}.png`;
-                    this.privateUrl = `https://111.231.136.250/#/buy/${group.id}/page`;
+                    this.qrCodeUrl = `${BASE_PATH}/image/user/private/${group.id}.png`;
+                    this.privateUrl = `${BASE_PATH}/#/buy/${compile(`${group.id}`)}/page`;
                 }
             } catch (error) {
                 console.error(error);
