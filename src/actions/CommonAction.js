@@ -103,3 +103,21 @@ export function loading({commit}, loading) {
 export function imageIsShowing({commit}, imageInfo) {
     commit(TYPES.IMAGE_INFO, imageInfo);
 }
+
+/**
+ * 存储生物列表搜索条件
+ * @param commit
+ * @param encyListSearchName
+ */
+export function updateEncyListSearchName({commit}, encyListSearchName) {
+    commit(TYPES.Ency_List_Search_Name, encyListSearchName);
+}
+
+/**
+ * 保存一件开团信息
+ * @param commit
+ * @param addedBill
+ */
+export function updateAddedBillNameDate({commit}, addedBill) {
+    commit(TYPES.Bill_Add_Name_Date, addedBill);
+}

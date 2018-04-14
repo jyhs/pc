@@ -125,7 +125,7 @@
                                 <el-checkbox v-model="isPrivate">是否为私密单</el-checkbox>
                             </el-form-item>
                             <el-form-item label="团购名" prop="name">
-                                <el-input placeholder="请输入出团购名" v-model="addForm.name"></el-input>
+                                <el-input placeholder="请输入团购名" v-model="addForm.name"></el-input>
                             </el-form-item>
                             <el-form-item label="联系人姓名" prop="contacts">
                                 <el-input placeholder="请输入联系人姓名" v-model="addForm.contacts"></el-input>

@@ -31,7 +31,10 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['currentUser'])
+        ...mapGetters([
+            'currentUser',
+            'encyListSearchName'
+        ])
     },
 
     async created () {
@@ -75,6 +78,7 @@ export default {
             'loading',
             'getCategories',
             'getTypesByCategoryCode',
+            'updateEncyListSearchName',
             'getCompatibilities',
             'getLevels',
             'getEncyList',
@@ -82,6 +86,7 @@ export default {
         ]),
 
         async initData({name, type} = {}) {
+            name = name || this.encyListSearchName;
             this.loading(true);
             let result = [];
             try {
@@ -110,6 +115,7 @@ export default {
         handleSearch() {
             this.$refs['searchForm'].validate(async (valid) => {
                 if (valid) {
+                    this.updateEncyListSearchName(this.searchForm.name);
                     this.initData({
                         name: this.searchForm.name,
                         type: this.selectedTypes

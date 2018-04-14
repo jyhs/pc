@@ -16,6 +16,11 @@ const state = {
     imageInfo: {
         show: false,
         path: ''
+    },
+    encyListSearchName: undefined,
+    addedBill: {
+        billName: undefined,
+        effortDate: new Date((new Date() / 1000 + 86400 * 7) * 1000)
     }
 };
 
@@ -30,6 +35,14 @@ const getters = {
 
     imageInfo(state) {
         return state.imageInfo;
+    },
+
+    encyListSearchName(state) {
+        return state.encyListSearchName;
+    },
+
+    addedBill(state) {
+        return state.addedBill;
     }
 };
 
@@ -44,6 +57,14 @@ const mutations = {
 
     [TYPES.IMAGE_INFO](state, imageInfo) {
         state.imageInfo = imageInfo;
+    },
+
+    [TYPES.Ency_List_Search_Name](state, encyListSearchName) {
+        state.encyListSearchName = encyListSearchName;
+    },
+
+    [TYPES.Bill_Add_Name_Date](state, addedBill) {
+        state.addedBill = addedBill;
     }
 };
 

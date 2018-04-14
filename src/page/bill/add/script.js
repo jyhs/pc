@@ -19,16 +19,16 @@ export default {
             addForm: {
                 billName: '',
                 phone: '',
-                effortDate: '',
+                effortDate: undefined,
                 supplierId: '',
                 description: 'TA很懒，什么都没留下~~~'
             },
             rules: {
                 billName: [
-                    {required: true, message: '请输入订货单名', trigger: 'blur'}
+                    {required: true, message: '请输入出货单名', trigger: 'blur'}
                 ],
                 phone: [
-                    {required: true, message: '请输入手机号', trigger: 'blur'},
+                    {required: true, message: '请输入供货商手机', trigger: 'blur'},
                     {validator: validatePhone, trigger: 'blur'}
                 ],
                 effortDate: [
@@ -72,7 +72,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['currentUser'])
+        ...mapGetters(['currentUser', 'addedBill'])
     },
 
     created() {
@@ -83,7 +83,8 @@ export default {
         ...mapActions([
             'loading',
             'getUserList',
-            'uploadBillFile'
+            'uploadBillFile',
+            'updateAddedBillNameDate'
         ]),
 
         async initData() {
@@ -238,6 +239,10 @@ export default {
                     this.loading(false);
 
                     if (result.status === 'ok') {
+                        this.updateAddedBillNameDate({
+                            billName: this.addForm.billName,
+                            effortDate: this.addForm.effortDate
+                        });
                         this.$message({
                             type: 'success',
                             message: `${this.addForm.billName}一键开团成功`

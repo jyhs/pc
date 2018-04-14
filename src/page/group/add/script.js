@@ -122,7 +122,7 @@ export default {
     },
 
     computed: {
-        ...mapGetters(['currentUser'])
+        ...mapGetters(['currentUser', 'addedBill'])
     },
 
     async created() {
@@ -166,6 +166,8 @@ export default {
         ]),
 
         async initData() {
+            this.addForm.name = this.addedBill.billName;
+            this.addForm.end_date = this.addedBill.effortDate;
             this.addForm.contacts = this.currentUser.name;
             this.addForm.phone = this.currentUser.phone;
             const {id} = this.$route.params;
