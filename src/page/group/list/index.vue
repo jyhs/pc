@@ -35,6 +35,7 @@
                                     <th>供货商</th>
                                     <th>已团金额</th>
                                     <th>当前状态</th>
+                                    <th>私密单</th>
                                     <th>截止日期</th>
                                     <th class="action-th" v-if="currentUser.type==='tggly'">操作</th>
                                 </tr>
@@ -54,6 +55,10 @@
                                     <td>
                                         <el-tag type="success" v-if="item.status===1">热团中</el-tag>
                                         <el-tag v-else>已结束</el-tag>
+                                    </td>
+                                    <td>
+                                        <el-tag type="warning" v-if="item.private===0">否</el-tag>
+                                        <el-tag type="primary" v-else>是</el-tag>
                                     </td>
                                     <td>{{item.end_date}}</td>
                                     <td align="center" v-if="currentUser.type==='tggly'">

@@ -71,7 +71,12 @@ export default {
             this.loading(true);
             let result = [];
             try {
-                result = await this.getGroupList({name, page: this.page, size: this.size});
+                result = await this.getGroupList({
+                    name,
+                    page: this.page,
+                    size: this.size,
+                    gl_id: Number(window.localStorage.getItem('SEAWATER_USER_ID'))
+                });
             } catch (error) {
                 console.error(error);
             }

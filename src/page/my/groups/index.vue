@@ -15,7 +15,10 @@
                             <th>团单名</th>
                             <th>团单状态</th>
                             <th>我的金额</th>
+                            <!--
                             <th>所得积分</th>
+                            -->
+                            <th>私密单</th>
                             <th>截止时间</th>
                             <th class="action-th">操作</th>
                         </tr>
@@ -34,7 +37,10 @@
                             <td>
                                 <span style="color: #d0021b">{{`￥${group.sum.toFixed(2)}`}}</span>
                             </td>
-                            <td>0</td>
+                            <td>
+                                <el-tag type="warning" v-if="group.private===0">否</el-tag>
+                                <el-tag type="primary" v-else>是</el-tag>
+                            </td>
                             <td>{{group.end_date}}</td>
                             <td align="center">
                                 <el-button

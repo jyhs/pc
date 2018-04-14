@@ -6,13 +6,14 @@ export default {
         return Vue.axios.post(`${API_BASE_PATH}/api/group/add`, params);
     },
 
-    getGroupList({name, userId, province, page = 1, size = 10}) {
+    getGroupList({name, userId, gl_id, province, page = 1, size = 10}) {
         const params = {
             page,
             size
         };
         name && (params.name = name);
         userId && (params.user_id = userId);
+        gl_id && (params.gl_id = gl_id);
         province && (params.province = province);
 
         return Vue.axios.get(`${API_BASE_PATH}/api/group/list`, {params});
