@@ -153,7 +153,9 @@
                                             <td><span style="color: #d0021b">{{`￥${item.price.toFixed(2)}`}}</span></td>
                                             <td style="text-align: center">
                                                 <el-rate
-                                                        :value="item.level==='ry'?1:(item.level==='yb'?3:5)" disabled text-color="#ff9900">
+                                                    :value="item.level==='ry'?1:(item.level==='yb'?3:5)"
+                                                    disabled
+                                                >
                                                 </el-rate>
                                             </td>
                                         </tr>
@@ -199,6 +201,9 @@
 <script src="./script.js"></script>
 <style lang="less">
     .normal-user-main-container {
+        .el-rate__icon {
+            font-size: 14px;
+        }
         .tab-more-button {
             position: absolute;
             right: 20px;

@@ -109,6 +109,7 @@ export default {
                 delete sendInfo.avatarImgPath;
                 delete sendInfo.taobaoImgPath;
                 delete sendInfo.wechatImgPath;
+                delete sendInfo.cityName;
             } else {
                 updatedUser = _.extend({}, this.currentUser, {
                     address: this.editForm.address,
@@ -127,6 +128,7 @@ export default {
                 delete sendInfo.avatarImgPath;
                 delete sendInfo.taobaoImgPath;
                 delete sendInfo.wechatImgPath;
+                delete sendInfo.cityName;
             }
 
             this.loading(true);

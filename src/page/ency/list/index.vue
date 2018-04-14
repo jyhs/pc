@@ -234,6 +234,9 @@
     }
     .ency-list-container {
         padding: 10px;
+        .el-rate__icon {
+            font-size: 14px;
+        }
         .card-container {
             a {
                 text-decoration: none;
