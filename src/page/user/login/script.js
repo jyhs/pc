@@ -62,6 +62,11 @@ export default {
 
     mounted() {
         this.showLogin = true;
+        $("body").keydown((event) => {
+            if (event.keyCode === 13) {
+                this.submit();
+            }
+        });
     },
 
     methods: {

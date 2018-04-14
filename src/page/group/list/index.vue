@@ -42,7 +42,7 @@
                             </thead>
                             <tbody>
                                 <tr v-for="item in groupList" :key="item.id">
-                                    <td>
+                                    <td style="max-width: 200px;">
                                         <a href="javascript: void (0);" @click="handleActions(item, 'groupDetail')">
                                             {{item.name}}
                                         </a>

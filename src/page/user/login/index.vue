@@ -1,5 +1,5 @@
 <template>
-    <div class="login-container">
+    <div class="login-container" @keyup.enter="submit">
         <div class="manage-tip">
             <img :src="require('../../../assets/img/coral-logo.png')">
         </div>

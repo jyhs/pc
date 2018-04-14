@@ -117,7 +117,7 @@
                 title="私密单入口" size="tiny" class="private-dialog"
                 :visible.sync="qrCodeVisible" :before-close="handleQrCodeCancel">
             <img :src="qrCodeUrl">
-            <span>私密单路径：{{privateUrl}}</span>
+            <span>团单地址：{{privateUrl}}</span>
         </el-dialog>
     </div>
 </template>
