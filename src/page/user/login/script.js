@@ -138,6 +138,10 @@ export default {
                 {required: true, message: '请输入短信验证码', trigger: 'blur'}
             ];
 
+            if (!this.$refs['loginForm']) {
+                return;
+            }
+
             this.$refs['loginForm'].validate(async (valid) => {
                 if (valid) {
                     this.loading(true);

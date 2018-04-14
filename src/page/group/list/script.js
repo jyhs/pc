@@ -68,6 +68,7 @@ export default {
         ]),
 
         async initData (name) {
+            name = name || this.searchForm.name || undefined;
             this.loading(true);
             let result = [];
             try {
@@ -75,8 +76,9 @@ export default {
                     name,
                     page: this.page,
                     size: this.size,
-                    gl_id: Number(window.localStorage.getItem('SEAWATER_USER_ID'))
-                });
+                    gl_id: Number(window.localStorage.getItem('SEAWATER_USER_ID')),
+                    province: this.$route.query.province
+            });
             } catch (error) {
                 console.error(error);
             }
@@ -87,6 +89,10 @@ export default {
         },
 
         handleSearch () {
+            if (!this.$refs['searchForm']) {
+                return;
+            }
+
             this.$refs['searchForm'].validate(async (valid) => {
                 if (valid) {
                     this.initData(this.searchForm.name);

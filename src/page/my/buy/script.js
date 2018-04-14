@@ -286,7 +286,8 @@ export default {
                 if (result.status === 'ok') {
                     this.detailsInCart.splice(deleteIndex, 1);
                     window.localStorage.setItem(`SEAWATER_CART_DETAILS_${userId}_${this.group.id}`, JSON.stringify(this.detailsInCart));
-                    const {groupId} = this.$route.params;
+                    let {groupId} = this.$route.params;
+                    groupId = Number(uncompile(groupId));
                     this.groupCount = (await this.getCountById({id: groupId}))[0].sum;
                     this.detailList = await this.getDetailsByBillId({id: this.group.bill_id});
                     this.$message({
@@ -424,7 +425,8 @@ export default {
                 });
                 return;
             }
-            const {groupId} = this.$route.params;
+            let {groupId} = this.$route.params;
+            groupId = Number(uncompile(groupId));
 
             this.$refs['cartForm'].validate(async (valid) => {
                 if (valid) {

@@ -73,6 +73,14 @@ export default {
         this.initData();
     },
 
+    mounted() {
+        $("body").keydown((event) => {
+            if (event.keyCode === 13) {
+                this.handleSearch();
+            }
+        });
+    },
+
     methods: {
         ...mapActions([
             'loading',
@@ -86,7 +94,7 @@ export default {
         ]),
 
         async initData({name, type} = {}) {
-            name = name || this.encyListSearchName;
+            name = name || this.searchForm.name;
             this.loading(true);
             let result = [];
             try {
@@ -113,6 +121,9 @@ export default {
         },
 
         handleSearch() {
+            if (!this.$refs['searchForm']) {
+                return;
+            }
             this.$refs['searchForm'].validate(async (valid) => {
                 if (valid) {
                     this.updateEncyListSearchName(this.searchForm.name);

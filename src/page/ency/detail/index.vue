@@ -73,6 +73,9 @@
             .el-rate {
                 display: inline-block;
             }
+            .el-rate__icon {
+                font-size: 14px;
+            }
             .card-header {
                 display: flex;
                 flex-direction: row;

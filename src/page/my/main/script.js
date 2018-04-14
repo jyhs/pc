@@ -178,9 +178,7 @@ export default {
         },
 
         handleTabMore() {
-            this.$router.push({
-                name: `${this.activeName}List`
-            });
+            this.$router.push(`${this.activeName}/list?province=${this.currentUser.nowProvince}`);
         },
 
         handleMore(pageName, queryParams) {

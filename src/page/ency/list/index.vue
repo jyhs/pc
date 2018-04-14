@@ -12,7 +12,7 @@
                     <el-col :xs="24" :sm="24" :md="16" :lg="16">
                         <el-form ref="searchForm" :model="searchForm" class="clear">
                             <el-form-item class="left">
-                                <el-input v-model="searchForm.name"></el-input>
+                                <el-input v-model="searchForm.name" @blur="handleSearch"></el-input>
                             </el-form-item>
                             <el-form-item class="left" style="margin-left: 20px">
                                 <el-button type="primary" @click="handleSearch" icon="search">查询</el-button>
