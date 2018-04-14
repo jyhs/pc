@@ -45,6 +45,7 @@ export default {
             imagePath: '',
             payType: '',
             payQrCodePath: '',
+            qqInfo: ''
         }
     },
 
@@ -74,7 +75,8 @@ export default {
             'getPayQrCode',
             'updateUserPhone',
             'updateCurrentUser',
-            'checkCartDetail'
+            'checkCartDetail',
+            'getCityByCode'
         ]),
 
         async initData() {
@@ -92,6 +94,7 @@ export default {
                     userId,
                 }))[0];
                 const result = await this.getPayQrCode({id: this.group.user_id});
+                this.qqInfo = (await this.getCityByCode({code: this.group.city}))['qq'];
                 if (result.status === 'ok' && result.type) {
                     this.payType = result.type;
                     this.payQrCodePath = `${PayBasePath[result.type]}${result.imgPath}?${Math.random()}`;

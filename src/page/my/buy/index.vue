@@ -46,6 +46,9 @@
                         </div>
                         <div style="margin-bottom: 10px">
                             <el-row>
+                                <el-col :xs="24" :sm="24" :md="24" :lg="24">
+                                    <div v-if="qqInfo" style="margin-bottom: 10px; color: #ee735c;" v-html="qqInfo"></div>
+                                </el-col>
                                 <el-col :xs="24" :sm="24" :md="18" :lg="18" style="margin-bottom: 10px">
                                     <div v-html="group.description"></div>
                                 </el-col>
@@ -191,6 +194,9 @@
                                 </a>
                             </p>
                         </div>
+                    </el-card>
+                    <el-card style="margin-top: 10px">
+                        <img style="width: 100%" :src="require('../../../assets/img/coral123_code.jpg')" alt="">
                     </el-card>
                 </div>
             </el-col>

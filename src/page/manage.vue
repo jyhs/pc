@@ -190,6 +190,9 @@
                 this.$set(this.currentUser, 'nowProvince', this.currentUser.province);
                 this.updateCurrentUser(this.currentUser);
                 this.updateNowProvince();
+                //remove Seawater_Provinces start
+                window.localStorage.removeItem(Seawater_Provinces);
+                //remove end
                 if (localStorageHasKey(Seawater_Provinces)) {
                     this.provinces = getFromLocalStorage(Seawater_Provinces);
                 } else {

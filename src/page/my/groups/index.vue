@@ -63,7 +63,6 @@
                                 </el-button>
                                 <el-button
                                         v-if="currentUser.type==='tggly'||currentUser.type==='lss'||currentUser.type==='pfs'"
-                                        :disabled="group.private!=1"
                                         title="私密单" size="small" icon="coral-attentionforbid"
                                         @click="getQrCodeInGroup(group)">
                                 </el-button>

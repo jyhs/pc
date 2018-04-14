@@ -28,5 +28,9 @@ export default {
 
     getYesOrNo() {
         return Vue.axios.get(`${API_BASE_PATH}/api/tools/yesno`);
+    },
+
+    getCityByCode({code}) {
+        return Vue.axios.get(`${API_BASE_PATH}/api/tools/city/code?code=${code}`);
     }
 };

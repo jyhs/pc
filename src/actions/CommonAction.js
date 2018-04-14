@@ -29,10 +29,10 @@ export async function getProvinces() {
     const provincesObj =  await CommonService.getProvinces();
     const provincesArr = [];
 
-    for (let key of Reflect.ownKeys(provincesObj.data)) {
+    for (let province of provincesObj.data) {
         provincesArr.push({
-            key,
-            value: provincesObj.data[key]
+            key: province.code,
+            value: province.name
         });
     }
 
@@ -120,4 +120,15 @@ export function updateEncyListSearchName({commit}, encyListSearchName) {
  */
 export function updateAddedBillNameDate({commit}, addedBill) {
     commit(TYPES.Bill_Add_Name_Date, addedBill);
+}
+
+/**
+ * 获取城市通过code
+ * @param commit
+ * @param params
+ * @returns {Promise<*|{}>}
+ */
+export async function getCityByCode({commit}, params) {
+    const response = await CommonService.getCityByCode(params);
+    return response.data || {};
 }
