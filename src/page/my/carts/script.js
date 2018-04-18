@@ -1,4 +1,5 @@
 import {mapGetters, mapActions} from 'vuex';
+import {compile} from '@/utils/common';
 
 export default {
     data() {
@@ -63,7 +64,7 @@ export default {
                     this.$router.push({
                         name: actionType,
                         params: {
-                            groupId: cart['group_id']
+                            groupId: compile(`${cart['group_id']}`)
                         }
                     });
                     break;
