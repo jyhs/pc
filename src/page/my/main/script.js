@@ -17,6 +17,7 @@ export default {
             usersLssAndPfs: [],
             usersLssAndPfsInCity: [],
             imageList: [],
+            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www'
         }
     },
 

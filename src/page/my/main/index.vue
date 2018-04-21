@@ -1,18 +1,19 @@
 <template>
     <el-col :span="24" class="normal-user-main-container">
         <el-row>
-            <el-col :xs="24" :sm="24" :md="18" :lg="18">
+            <el-col :xs="24" :sm="24" :md="accept==='www'?18:24" :lg="accept==='www'?18:24">
                 <div style="padding: 10px">
                     <el-card class="card-height-430 card-flex" style="position: relative">
                         <a href="javascript: void (0);" class="tab-more-button"  @click="handleTabMore">
                             更多
                         </a>
                         <el-tabs v-model="activeName">
-                            <el-tab-pane label="同省热团" name="group">
+                            <el-tab-pane :label="accept==='www'?'同省热团':'我的订单'" name="group">
                                 <table class="table table-striped action-table">
                                     <thead>
                                         <tr>
-                                            <th>团单名</th>
+                                            <th v-if="accept==='www'">团单名</th>
+                                            <th v-else>订单名</th>
                                             <th class="mobile-no-see">组织者</th>
                                             <th>开团城市</th>
                                             <th class="mobile-no-see">供货商</th>
@@ -43,7 +44,7 @@
                                     </tbody>
                                 </table>
                             </el-tab-pane>
-                            <el-tab-pane label="最新出单" name="bill">
+                            <el-tab-pane label="最新出单" name="bill" v-if="accept==='www'">
                                 <table class="table table-striped action-table">
                                     <thead>
                                         <tr>
@@ -89,7 +90,7 @@
                     </el-card>
                 </div>
             </el-col>
-            <el-col :xs="24" :sm="24" :md="6" :lg="6">
+            <el-col :xs="24" :sm="24" :md="6" :lg="6" v-if="accept==='www'">
                 <div style="padding: 10px;">
                     <el-card class="card-container card-height-430 card-flex">
                         <div slot="header" class="clear-fix">
@@ -116,7 +117,7 @@
                 </div>
             </el-col>
         </el-row>
-        <el-row>
+        <el-row v-if="accept==='www'">
             <el-col :xs="24" :sm="24" :md="12" :lg="12">
                 <div style="padding: 10px;">
                     <el-card class="card-container">

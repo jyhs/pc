@@ -6,7 +6,8 @@
                     <el-col :xs="24" :sm="24" :md="8" :lg="8">
                         <div style="line-height: 36px;">
                             <el-icon class="el-icon-coral-list"></el-icon>
-                            <span class="card-title">团单列表</span>
+                            <span class="card-title" v-if="accept==='www'">团单列表</span>
+                            <span class="card-title" v-else>订单列表</span>
                         </div>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="16" :lg="16">
@@ -28,7 +29,8 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>团单名</th>
+                                    <th v-if="accept==='www'">团单名</th>
+                                    <th v-else>订单名</th>
                                     <th>组织者</th>
                                     <th>组织者手机</th>
                                     <th>开团城市</th>

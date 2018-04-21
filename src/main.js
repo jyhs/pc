@@ -42,7 +42,11 @@ router.beforeEach((to, from, next) => {
 // http request 拦截器
 Axios.interceptors.request.use(
     config => {
+        //const accept = window.location.host.split('.')[0];
+        const accept = 'blueocean';
         config.headers.Authorization = window.localStorage.getItem('Authorization');
+        config.headers.Accept = accept;
+        window.localStorage.setItem('SEAWATER_ACCEPT', accept);
         return config;
     },
     error => {

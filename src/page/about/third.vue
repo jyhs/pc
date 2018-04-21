@@ -1,30 +1,24 @@
 <template>
-    <div id="aboutFirst">
+    <div id="aboutThird">
         <div class="section">
-            <img src="../../assets/img/about/first/1.png">
+            <img src="../../assets/img/about/third/1.png">
         </div>
         <div class="section">
-            <img src="../../assets/img/about/first/2.png">
+            <img src="../../assets/img/about/third/2.png">
         </div>
         <div class="section">
-            <img src="../../assets/img/about/first/3.png">
+            <img src="../../assets/img/about/third/3.png">
         </div>
         <div class="section">
-            <img src="../../assets/img/about/first/4.png">
+            <img src="../../assets/img/about/third/4.png">
         </div>
         <div class="section">
-            <img src="../../assets/img/about/first/5.png">
-        </div>
-        <div class="section">
-            <img src="../../assets/img/about/first/6.png">
-        </div>
-        <div class="section">
-            <img src="../../assets/img/about/first/7.png">
+            <img src="../../assets/img/about/third/5.png">
         </div>
     </div>
 </template>
 <style lang="less">
-    #aboutFirst {
+    #aboutThird {
         img {
             height: auto;
             display: block;

@@ -1,7 +1,7 @@
 <template>
     <div class="register-container">
         <div class="manage-tip">
-            <img :src="require('../../../assets/img/coral-logo.png')">
+            <img :src="require('../../../assets/img/www-logo.png')">
         </div>
         <section class="form-container" v-show="showRegister">
             <el-form :model="registerForm" :rules="rules" ref="registerForm">

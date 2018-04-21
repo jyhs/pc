@@ -42,6 +42,10 @@ const mySetting = r => require.ensure([], () => r(require('@/page/my/setting/ind
 const manage = r => require.ensure([], () => r(require('@/page/manage')), 'manage');
 const home = r => require.ensure([], () => r(require('@/page/home')), 'home');
 const about = r => require.ensure([], () => r(require('@/page/about/index')), 'explain');
+const aboutFirst = r => require.ensure([], () => r(require('@/page/about/first')), 'aboutFirst');
+const aboutSecond = r => require.ensure([], () => r(require('@/page/about/second')), 'aboutSecond');
+const aboutThird = r => require.ensure([], () => r(require('@/page/about/third')), 'aboutThird');
+const aboutFourth = r => require.ensure([], () => r(require('@/page/about/fourth')), 'aboutFourth');
 const wechatEncyList = r => require.ensure([], () => r(require('@/page/wechat/encyList/index')), 'wechatEncyList');
 
 const routes = [
@@ -300,6 +304,34 @@ const routes = [
                 //requireAuth: true
             }
 		}, {
+            path: '/aboutFirst',
+            component: aboutFirst,
+            name: 'aboutFirst',
+            meta: {
+                //requireAuth: true
+            }
+        }, {
+            path: '/aboutSecond',
+            component: aboutSecond,
+            name: 'aboutSecond',
+            meta: {
+                //requireAuth: true
+            }
+        }, {
+            path: '/aboutThird',
+            component: aboutThird,
+            name: 'aboutThird',
+            meta: {
+                //requireAuth: true
+            }
+        }, {
+            path: '/aboutFourth',
+            component: aboutFourth,
+            name: 'aboutFourth',
+            meta: {
+                //requireAuth: true
+            }
+        }, {
             path: '/wechat/encyList/:type',
             component: wechatEncyList,
             name: 'wechatEncyList',

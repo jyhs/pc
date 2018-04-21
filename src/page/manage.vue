@@ -7,14 +7,14 @@
         <el-row class="content-container">
             <el-col :md="24" :lg="24" class="nav">
                 <el-col :xs="0" :sm="0" :md="3" :lg="3" class="coral-logo">
-                    <img :src="require('../assets/img/coral-logo.png')" style="cursor: pointer" @click="handleGoToMainPage">
+                    <img :src="require(`../assets/img/${accept}-logo.png`)" style="cursor: pointer" @click="handleGoToMainPage">
                 </el-col>
                 <el-col :xs=0 :sm="0" :md="16" :lg="16">
                     <el-menu :default-active="defaultActive" mode="horizontal" router>
-                        <el-menu-item index="/">团购</el-menu-item>
+                        <el-menu-item index="/" v-if="accept==='www'">团购</el-menu-item>
+                        <el-menu-item index="/" v-else>订单</el-menu-item>
                         <el-menu-item index="/ency/list">百科</el-menu-item>
                         <el-menu-item index="/bill/add" v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='pfs'||currentUser.type==='lss'">传单</el-menu-item>
-
                         <!--
                         <el-menu-item index="/main/page">主页</el-menu-item>
                         -->
@@ -31,7 +31,13 @@
                         <!--
                         <el-menu-item index="/ency/add" v-if="currentUser.type==='bkgly'">添加生物</el-menu-item>
                         -->
-                        <el-menu-item index="/about">关于本站</el-menu-item>
+                        <el-submenu index="4" v-if="accept==='www'">
+                            <template slot="title">帮助文档</template>
+                            <el-menu-item index="/aboutFirst">认识Coral123</el-menu-item>
+                            <el-menu-item index="/aboutSecond">如何开团？</el-menu-item>
+                            <el-menu-item index="/aboutThird">如何制作标准单？</el-menu-item>
+                            <el-menu-item index="/aboutFourth">开团管理</el-menu-item>
+                        </el-submenu>
                     </el-menu>
                 </el-col>
                 <el-col :xs="0" :sm="0" :md="5" :lg="5" class="mine-more">
@@ -56,10 +62,10 @@
                             <el-dropdown-item command="cart">我的购物车</el-dropdown-item>
                             <el-dropdown-item
                                     command="bill"
-                                    v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='pfs'">
+                                    v-if="accept==='www'&&(currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='pfs')">
                                 我传的出单
                             </el-dropdown-item>
-                            <el-dropdown-item command="group">我开的团单</el-dropdown-item>
+                            <el-dropdown-item command="group" v-if="accept==='www'">我开的团单</el-dropdown-item>
                             <el-dropdown-item command="logout" v-if="currentUser.name">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
@@ -80,7 +86,7 @@
                                         v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='pfs'">
                                     出单上传
                                 </el-dropdown-item>
-                                <el-dropdown-item command="about">关于本站</el-dropdown-item>
+                                <el-dropdown-item command="aboutFirst" v-if="accept==='www'">认识Coral123</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                     </el-col>
@@ -104,10 +110,10 @@
                                 -->
                                 <el-dropdown-item command="setting" divided>个人设置</el-dropdown-item>
                                 <el-dropdown-item command="cart">我的购物车</el-dropdown-item>
-                                <el-dropdown-item command="bill">我传的出单</el-dropdown-item>
-                                <el-dropdown-item command="group">我开的团单</el-dropdown-item>
+                                <el-dropdown-item command="bill" v-if="accept==='www'">我传的出单</el-dropdown-item>
+                                <el-dropdown-item command="group" v-if="accept==='www'">我开的团单</el-dropdown-item>
                                 <el-dropdown-item command="logout" v-if="currentUser.name">退出登录</el-dropdown-item>
-                                <el-dropdown-item command="about" divided>关于本站</el-dropdown-item>
+                                <el-dropdown-item command="about" divided v-if="accept==='www'">认识Coral123</el-dropdown-item>
                             </el-dropdown-menu>
                         </el-dropdown>
                     </el-col>
@@ -117,7 +123,7 @@
                 <keep-alive>
                     <router-view></router-view>
                 </keep-alive>
-                <el-col :span="24" style="text-align: center; margin-bottom: 10px">
+                <el-col :span="24" style="text-align: center; margin-bottom: 10px" v-if="accept==='www'">
                     <span style="font-size: 16px">©</span>{{new Date().getFullYear()}} 礁岩海水(Coral123) 沪ICP备14045940号
                     <el-tooltip class="item" effect="dark" content="QQ号：45895" placement="top">
                         <el-button class="contact-button">联系我们</el-button>
@@ -163,7 +169,8 @@
                 currentUser: {},
                 avatarImgPath: '',
                 //firstDialogVisible: !localStorage.getItem('SEAWATER_FIRST_LOGIN')
-                firstDialogVisible: false
+                firstDialogVisible: false,
+                accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www'
             }
         },
 
@@ -281,7 +288,7 @@
                         this.$router.push({name: 'login'});
                         break;
                     case 'about':
-                        this.$router.push({name: 'about'});
+                        this.$router.push({name: 'aboutFirst'});
                         break;
                     default:
                         break;
@@ -331,11 +338,10 @@
                 .coral-logo {
                     height: 60px;
                     line-height: 60px;
-                    text-indent: 20px;
                     img {
-                        display: inline-block;
                         vertical-align: middle;
-                        width: 80%;
+                        width: 94%;
+                        margin-left: 3%;
                     }
                 }
                 .select-city {

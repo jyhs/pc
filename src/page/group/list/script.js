@@ -30,6 +30,7 @@ export default {
                 }
             },
             endDate: '',
+            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www'
         }
     },
 

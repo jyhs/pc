@@ -1,7 +1,7 @@
 <template>
     <div class="login-container" @keyup.enter="submit">
         <div class="manage-tip">
-            <img :src="require('../../../assets/img/coral-logo.png')">
+            <img :src="require('../../../assets/img/www-logo.png')">
         </div>
         <section class="form-container" v-show="showLogin">
             <el-form :model="loginForm" :rules="rules" ref="loginForm">
