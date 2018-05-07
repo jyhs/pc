@@ -15,7 +15,7 @@
                         <el-form>
                             <el-form-item>
                                 <el-button icon="coral-down" @click="downloadTemplate">下载模板</el-button>
-                                <el-button icon="coral-upload" @click="submitUpload">立即上传</el-button>
+                                <el-button icon="coral-upload" @click="submitUpload" v-if="accept==='www'">立即上传</el-button>
                                 <el-button
                                         icon="coral-light"
                                         @click="submitUploadBySeller"
@@ -37,7 +37,12 @@
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="12" :lg="8">
                         <el-form-item label="供货商" prop="supplierId">
-                            <el-select placeholder="请选择供货商" v-model="addForm.supplierId" @change="handleSupplierChange">
+                            <el-select
+                                placeholder="请选择供货商"
+                                v-model="addForm.supplierId"
+                                @change="handleSupplierChange"
+                                :disabled="accept!=='www'"
+                            >
                                 <el-option
                                         v-for="user in usersPfs" :label="user.name"
                                         :value="user.id" :key="user.id">
@@ -47,7 +52,12 @@
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="12" :lg="8">
                         <el-form-item label="供货商手机" prop="phone">
-                            <el-input placeholder="请输入供货商手机" :maxlength="11" v-model="addForm.phone" :readonly="true"></el-input>
+                            <el-input
+                                placeholder="请输入供货商手机"
+                                :maxlength="11"
+                                v-model="addForm.phone"
+                                :disabled="true">
+                            </el-input>
                         </el-form-item>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="12" :lg="8">

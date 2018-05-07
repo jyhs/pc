@@ -14,9 +14,10 @@
                                         <tr>
                                             <th v-if="accept==='www'">团单名</th>
                                             <th v-else>订单名</th>
-                                            <th class="mobile-no-see">组织者</th>
+                                            <th class="mobile-no-see" v-if="accept==='www'">组织者</th>
                                             <th>开团城市</th>
-                                            <th class="mobile-no-see">供货商</th>
+                                            <th lass="mobile-no-see">结束时间</th>
+                                            <th class="mobile-no-see" v-if="accept==='www'">供货商</th>
                                             <th>已团金额</th>
                                             <th>当前状态</th>
                                         </tr>
@@ -28,9 +29,10 @@
                                                     {{group.name}}
                                                 </a>
                                             </td>
-                                            <td class="mobile-no-see">{{group.contacts}}</td>
+                                            <td class="mobile-no-see" v-if="accept==='www'">{{group.contacts}}</td>
                                             <td>{{group.city}}</td>
-                                            <td class="mobile-no-see">{{group.supplierName}}</td>
+                                            <td lass="mobile-no-see">{{group.end_date}}</td>
+                                            <td class="mobile-no-see" v-if="accept==='www'">{{group.supplierName}}</td>
                                             <td>
                                                 <span style="color: #d0021b">
                                                     {{`￥${group.sum.toFixed(2)}`}}
@@ -109,7 +111,7 @@
                                     <div>
                                         <strong>{{user.name}}</strong>
                                     </div>
-                                    <div>{{user.contacts.trim() || '暂时还没添加联系人'}}</div>
+                                    <div>{{(user.contacts || '').trim() || '暂时还没添加联系人'}}</div>
                                 </div>
                             </div>
                         </div>
@@ -189,7 +191,7 @@
                                             {{user.name}}
                                         </strong>
                                     </div>
-                                    <div>{{user.description.trim() || '暂时还没添加描述'}}</div>
+                                    <div>{{(user.description || '').trim() || '暂时还没添加描述'}}</div>
                                 </div>
                             </div>
                         </div>

@@ -90,6 +90,7 @@ export default {
             types: [],
             authSVG: `${API_BASE_PATH}/api/tools/verification?${Math.random()}`,
             requestId: '',
+            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www',
             countDown: {
                 isStart: false
             },

@@ -23,7 +23,7 @@
                             <el-menu-item index="/user/list">列表</el-menu-item>
                             <el-menu-item index="/user/distribute">分布</el-menu-item>
                         </el-submenu>
-                        <el-submenu index="3" v-if="currentUser.type==='tggly'">
+                        <el-submenu index="3" v-if="accept==='www'&&currentUser.type==='tggly'">
                             <template slot="title">团购管理</template>
                             <el-menu-item index="/bill/list">传单列表</el-menu-item>
                             <el-menu-item index="/group/list">团购列表</el-menu-item>
@@ -41,14 +41,21 @@
                     </el-menu>
                 </el-col>
                 <el-col :xs="0" :sm="0" :md="5" :lg="5" class="mine-more">
-                    <el-select
-                            class="select-city" v-model="userProvince" placeholder="请选择"
-                            filterable @change="handleNowProvinceChange">
-                        <el-option
+                    <div>
+                        <el-select
+                            v-if="accept==='www'"
+                            class="select-city"
+                            v-model="userProvince"
+                            placeholder="请选择"
+                            filterable
+                            @change="handleNowProvinceChange"
+                        >
+                            <el-option
                                 v-for="item in provinces" :key="item.key" :label="item.value"
                                 :value="item.key">
-                        </el-option>
-                    </el-select>
+                            </el-option>
+                        </el-select>
+                    </div>
                     <el-dropdown @command="handleCommandChange" menu-align='start'>
                         <img v-if="avatarImgPath" :src="avatarImgPath" class="avatar">
                         <img v-else :src="require('../assets/svg/default_avatar.svg')" class="avatar">
@@ -62,10 +69,11 @@
                             <el-dropdown-item command="cart">我的购物车</el-dropdown-item>
                             <el-dropdown-item
                                     command="bill"
-                                    v-if="accept==='www'&&(currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='pfs')">
+                                    v-if="(currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='pfs')">
                                 我传的出单
                             </el-dropdown-item>
                             <el-dropdown-item command="group" v-if="accept==='www'">我开的团单</el-dropdown-item>
+                            <el-dropdown-item command="group" v-else>我的订单</el-dropdown-item>
                             <el-dropdown-item command="logout" v-if="currentUser.name">退出登录</el-dropdown-item>
                         </el-dropdown-menu>
                     </el-dropdown>
@@ -91,7 +99,13 @@
                         </el-dropdown>
                     </el-col>
                     <el-col :span="12" class="mobile-select-city-container">
-                        <el-select v-model="userProvince" placeholder="请选择" filterable @change="handleNowProvinceChange">
+                        <el-select
+                            v-if="accept==='www'"
+                            v-model="userProvince"
+                            placeholder="请选择"
+                            filterable
+                            @change="handleNowProvinceChange"
+                        >
                             <el-option
                                     v-for="item in provinces" :key="item.key" :label="item.value"
                                     :value="item.key">
@@ -110,8 +124,9 @@
                                 -->
                                 <el-dropdown-item command="setting" divided>个人设置</el-dropdown-item>
                                 <el-dropdown-item command="cart">我的购物车</el-dropdown-item>
-                                <el-dropdown-item command="bill" v-if="accept==='www'">我传的出单</el-dropdown-item>
+                                <el-dropdown-item command="bill">我传的出单</el-dropdown-item>
                                 <el-dropdown-item command="group" v-if="accept==='www'">我开的团单</el-dropdown-item>
+                                <el-dropdown-item command="group" v-else>我的订单</el-dropdown-item>
                                 <el-dropdown-item command="logout" v-if="currentUser.name">退出登录</el-dropdown-item>
                                 <el-dropdown-item command="about" divided v-if="accept==='www'">认识Coral123</el-dropdown-item>
                             </el-dropdown-menu>
@@ -184,6 +199,20 @@
 
         async created () {
             try {
+                /**
+                 * 统一修改icon及title
+                 */
+                if (this.accept !== 'www') {
+                    const favicon = document.getElementById('favicon');
+                    favicon.href = `/${this.accept}.ico`;
+                    switch (this.accept) {
+                        case 'blueocean':
+                            document.title = '蓝海洋订单系统';
+                            break;
+                        default:
+                            break;
+                    }
+                }
                 if (this.currentUserId) {
                     this.currentUser = (await this.getUserById({id: this.currentUserId}))[0];
                     const avatarImgPath = (await this.getUserAvatar({id: this.currentUserId})).imgPath;
@@ -229,13 +258,24 @@
             },
 
             updateNowProvince() {
-                const nowProvince = window.localStorage.getItem(Seawater_Now_Province);
-                if (nowProvince) {
-                    this.userProvince = nowProvince;
-                } else if (this.currentUser.province) {
-                    this.userProvince = this.currentUser.province;
+                if (this.accept === 'www') {
+                    const nowProvince = window.localStorage.getItem(Seawater_Now_Province);
+                    if (nowProvince) {
+                        this.userProvince = nowProvince;
+                    } else if (this.currentUser.province) {
+                        this.userProvince = this.currentUser.province;
+                    } else {
+                        this.userProvince = 'sh';
+                    }
                 } else {
-                    this.userProvince = 'sh';
+                    switch (this.accept) {
+                        case 'blueocean':
+                            this.userProvince = 'tj';
+                            this.handleNowProvinceChange(this.userProvince);
+                            break;
+                        default:
+                            break;
+                    }
                 }
             },
 

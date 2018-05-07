@@ -45,7 +45,8 @@ export default {
             imagePath: '',
             payType: '',
             payQrCodePath: '',
-            qqInfo: ''
+            qqInfo: '',
+            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www'
         }
     },
 

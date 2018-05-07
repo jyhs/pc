@@ -195,7 +195,7 @@
                             </p>
                         </div>
                     </el-card>
-                    <el-card style="margin-top: 10px">
+                    <el-card style="margin-top: 10px" v-if="accept==='www'">
                         <img style="width: 100%" :src="require('../../../assets/img/coral123_code.jpg')" alt="">
                     </el-card>
                 </div>

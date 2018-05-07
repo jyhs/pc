@@ -205,6 +205,7 @@ export default {
                 !sendInfo.description && delete sendInfo.description;
                 delete sendInfo.pay_type;
                 delete sendInfo.cityName;
+                delete sendInfo.code;
 
                 result = await this.updateUser(sendInfo);
             } catch(error) {

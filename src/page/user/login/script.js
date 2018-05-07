@@ -46,7 +46,8 @@ export default {
                 isStart: false
             },
             loginHasError: Boolean(window.sessionStorage.getItem('SEAWATER_LOGIN_HAS_ERROR')) || false,
-            requestId: ''
+            requestId: '',
+            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www'
         }
     },
 

@@ -64,6 +64,8 @@ export default {
             },
             fileChangeDesc: '',
             usersPfs: [],
+            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www',
+            currentUserId: window.parseInt(localStorage.getItem('SEAWATER_USER_ID')),
         }
     },
 
@@ -100,6 +102,10 @@ export default {
             }
             this.loading(false);
             this.addForm.effortDate = new Date((new Date() / 1000 + 86400 * 7) * 1000);
+            if (this.accept !== 'www') {
+                this.addForm.supplierId = this.currentUserId;
+                this.handleSupplierChange( this.currentUserId);
+            }
         },
 
         downloadTemplate() {
