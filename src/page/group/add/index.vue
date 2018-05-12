@@ -121,7 +121,7 @@
                     </div>
                     <div class="form-container">
                         <el-form :model="addForm" :rules="rules" ref="addForm" label-position="top">
-                            <el-form-item label="私密单" v-if="currentUser.type==='tggly'||currentUser.type==='lss'||currentUser.type==='pfs'">
+                            <el-form-item label="私密单" v-if="currentUser.type!=='yy'">
                                 <el-checkbox v-model="isPrivate">是否为私密单</el-checkbox>
                             </el-form-item>
                             <el-form-item label="团购名" prop="name">
