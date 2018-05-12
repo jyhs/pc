@@ -15,7 +15,9 @@
                         <el-form>
                             <el-form-item>
                                 <el-button icon="coral-down" @click="downloadTemplate">下载模板</el-button>
-                                <el-button icon="coral-upload" @click="submitUpload" v-if="accept==='www'">立即上传</el-button>
+                                <el-button icon="coral-upload" @click="submitUpload" v-if="accept==='www'&&currentUser.type==='tggly'||currentUser.type==='pfs'">
+                                    立即上传
+                                </el-button>
                                 <el-button
                                         icon="coral-light"
                                         @click="submitUploadBySeller"
