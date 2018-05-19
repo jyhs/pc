@@ -62,7 +62,7 @@
                                         @click="downloadAboutGroup(group)">
                                 </el-button>
                                 <el-button
-                                        v-if="currentUser.type==='tggly'||currentUser.type==='lss'||currentUser.type==='pfs'"
+                                        v-if="currentUser.type!=='yy'"
                                         title="私密单" size="small" icon="coral-attentionforbid"
                                         @click="getQrCodeInGroup(group)">
                                 </el-button>

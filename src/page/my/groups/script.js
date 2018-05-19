@@ -1,5 +1,5 @@
 import {mapGetters, mapActions} from 'vuex';
-import {BASE_PATH, GROUP_EXCEL_BASE_PATH} from '@/constants/index';
+import {BASE_PATH, BASE_PRIVATE_PATH, GROUP_EXCEL_BASE_PATH} from '@/constants/index';
 import {formatDateParam, formatDateTimeParam, isEmpty, compile} from '@/utils/common';
 
 export default {
@@ -142,7 +142,7 @@ export default {
                 if (result.status === 'ok') {
                     this.qrCodeVisible = true;
                     this.qrCodeUrl = `${BASE_PATH}/image/user/private/${group.id}.png`;
-                    this.privateUrl = `${BASE_PATH}/#/buy/${compile(`${group.id}`)}/page`;
+                    this.privateUrl = `${BASE_PRIVATE_PATH}/#/buy/${compile(`${group.id}`)}/page`;
                 }
             } catch (error) {
                 console.error(error);
