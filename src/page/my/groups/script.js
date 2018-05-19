@@ -1,5 +1,5 @@
 import {mapGetters, mapActions} from 'vuex';
-import {BASE_PATH, BASE_PRIVATE_PATH, GROUP_EXCEL_BASE_PATH} from '@/constants/index';
+import {BASE_PATH, BASE_PRIVATE_PATH, GROUP_EXCEL_BASE_PATH, API_BASE_PATH} from '@/constants/index';
 import {formatDateParam, formatDateTimeParam, isEmpty, compile} from '@/utils/common';
 
 export default {
@@ -132,22 +132,9 @@ export default {
         },
 
         async getQrCodeInGroup(group) {
-            this.loading(true);
-            let result = {};
-            try {
-                result = await this.getQrCodeByGroupId({
-                    id: group.id,
-                    user_id: group.user_id,
-                });
-                if (result.status === 'ok') {
-                    this.qrCodeVisible = true;
-                    this.qrCodeUrl = `${BASE_PATH}/image/user/private/${group.id}.png`;
-                    this.privateUrl = `${BASE_PRIVATE_PATH}/#/buy/${compile(`${group.id}`)}/page`;
-                }
-            } catch (error) {
-                console.error(error);
-            }
-            this.loading(false);
+            this.qrCodeVisible = true;
+            this.qrCodeUrl = `${API_BASE_PATH}/api/tools/qrCode?id=${group.id}`;
+            this.privateUrl = `${BASE_PRIVATE_PATH}/#/buy/${compile(`${group.id}`)}/page`;
         },
 
         handleCancel() {

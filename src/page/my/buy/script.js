@@ -1,8 +1,8 @@
 import {mapGetters, mapActions} from 'vuex';
 import _ from 'lodash';
-import {isEmpty, uncompile} from '@/utils/common';
+import {isEmpty, compile, uncompile} from '@/utils/common';
 import {Seawater_Now_Province, SMALL_IMAGE_BASE_PATH, TAOBAO_QR_BASE_PATH,
-    WECHAT_QR_BASE_PATH
+    WECHAT_QR_BASE_PATH, BASE_PATH, BASE_PRIVATE_PATH, API_BASE_PATH
 } from '@/constants/index';
 
 const PayBasePath = {
@@ -21,6 +21,7 @@ export default {
                 callback();
             }
         };
+        const groupId = uncompile(this.$route.params.groupId);
         return {
             group: {},
             groupCount: 0,
@@ -46,7 +47,9 @@ export default {
             payType: '',
             payQrCodePath: '',
             qqInfo: '',
-            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www'
+            accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www',
+            qrCodeVisible: false,
+            qrCodeUrl: `${API_BASE_PATH}/api/tools/qrCode?id=${groupId}`,
         }
     },
 
@@ -77,7 +80,8 @@ export default {
             'updateUserPhone',
             'updateCurrentUser',
             'checkCartDetail',
-            'getCityByCode'
+            'getCityByCode',
+            'getQrCodeByGroupId'
         ]),
 
         async initData() {
@@ -200,6 +204,14 @@ export default {
             } catch (error) {
                 console.log(error);
             }
+        },
+
+        async handleShowBuyPageQrCode() {
+            this.qrCodeVisible = true;
+        },
+
+        handleQrCodeCancel() {
+            this.qrCodeVisible = false;
         },
 
         calculateCartCount(detail) {

@@ -113,11 +113,21 @@
                                             </td>
                                             <td align="center" v-else>
                                                 <el-button
+                                                        v-if="accept!=='www'"
                                                         class="add-cart-button"
                                                         :class="{'cart-button-disabled': group.status===0||detail.left_numbers<=0}"
                                                         icon="plus"
                                                         :disabled="group.status===0"
                                                         @click="handleAddToCart(detail)"
+                                                >
+                                                </el-button>
+                                                <el-button
+                                                        v-else
+                                                        class="add-cart-button"
+                                                        :class="{'cart-button-disabled': group.status===0||detail.left_numbers<=0}"
+                                                        icon="plus"
+                                                        :disabled="group.status===0"
+                                                        @click="handleShowBuyPageQrCode(detail)"
                                                 >
                                                 </el-button>
                                             </td>
@@ -131,7 +141,7 @@
             </el-col>
             <el-col :xs="24" :sm="24" :md="24" :lg="5" style="/*position: fixed; top: 60px; right: 0;*/">
                 <div style="padding: 10px;">
-                    <el-card class="card-container">
+                    <el-card class="card-container" v-if="accept!=='www'">
                         <div slot="header" class="clear-fix card-header">
                             <div style="line-height: 36px;">
                                 <el-icon class="el-icon-coral-cart"></el-icon>
@@ -207,6 +217,11 @@
                 <el-button @click="dialogVisible=false">取消</el-button>
                 <el-button type="primary" @click="handleConfirmDelete">确定</el-button>
             </span>
+        </el-dialog>
+        <el-dialog
+                title="购买请扫二维码" size="tiny" class="private-dialog"
+                :visible.sync="qrCodeVisible" :before-close="handleQrCodeCancel">
+            <img :src="qrCodeUrl">
         </el-dialog>
         <!--
         <a href="#myCart" class="cart-icon-container">
@@ -415,6 +430,18 @@
                     left: 15px;
                     top: 0;
                 }
+            }
+        }
+        .private-dialog {
+            img {
+                width: 300px;
+                height: 300px;
+            }
+            .el-dialog__body {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
             }
         }
         @media screen and (max-width: 768px) {
