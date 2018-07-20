@@ -21,7 +21,6 @@ export default {
                 callback();
             }
         };
-        const groupId = uncompile(this.$route.params.groupId);
         return {
             group: {},
             groupCount: 0,
@@ -49,7 +48,7 @@ export default {
             qqInfo: '',
             accept: window.localStorage.getItem('SEAWATER_ACCEPT') || 'www',
             qrCodeVisible: false,
-            qrCodeUrl: `${API_BASE_PATH}/api/tools/qrCode?id=${groupId}`,
+            qrCodeUrl: ``,
         }
     },
 
@@ -206,8 +205,10 @@ export default {
             }
         },
 
-        async handleShowBuyPageQrCode() {
+        handleShowBuyPageQrCode() {
+            const groupId = uncompile(this.$route.params.groupId);
             this.qrCodeVisible = true;
+            this.qrCodeUrl = `${API_BASE_PATH}/api/tools/qrCode?id=${groupId}&random_id=${Math.random()}`;
         },
 
         handleQrCodeCancel() {

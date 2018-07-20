@@ -31,7 +31,9 @@ export default {
                 pay_name: '',
                 pay_count: '',
                 pay_description: '',
-                freight: '',
+                freight: 13,
+                hasTop: false,
+                top_freight: 50,
                 is_flash: '',
                 flash_desc: ''
             },
@@ -60,6 +62,17 @@ export default {
                     {required: true, message: '请输入收货地址', trigger: 'blur'}
                 ],
                 */
+                freight: [
+                    {required: true, message: '请输入运费(%)'},
+                    {type: 'number', message: '参考价必须为数字值'}
+                ],
+                hasTop: [
+                    {required: true, message: '请输入单品运费是否封顶'},
+                ],
+                top_freight: [
+                    {required: true, message: '请输入单品运费封顶额(%)'},
+                    {type: 'number', message: '封顶额必须为数字值'}
+                ],
                 description: [
                     {required: true, message: '请输入简介', trigger: 'blur'}
                 ],
@@ -75,10 +88,6 @@ export default {
                 ],
                 pay_description: [
                     {required: true, message: '请输入支付描述', trigger: 'blur'}
-                ],
-                freight: [
-                    {required: true, message: '请输入运费(%)'},
-                    {type: 'number', message: '参考价必须为数字值'}
                 ],
                 is_flash: [
                     {required: true, message: '请选择是否支持闪送', trigger: 'change'}
@@ -98,10 +107,7 @@ export default {
                 placeholder: "请输入其他信息，支持html",
                 modules: {
                     toolbar: [
-                        [{'header': [1, 2, 3, 4, 5, 6, false]}],
                         [{'color': []}, {'background': []}],
-                        [{'font': []}],
-                        [{'align': []}],
                     ]
                 }
             },
@@ -187,7 +193,7 @@ export default {
         },
 
         async handleDetailImageShow (detail) {
-            if (!detail['material_id']) {
+            if (!detail['material_id'] || !this.preDetail) {
                 this.preDetail = detail;
                 this.imagePath = require('../../../assets/svg/default_detail.svg');
                 return;
@@ -226,7 +232,9 @@ export default {
                         freight: this.addForm.freight ? this.addForm.freight * 0.01 : '',
                         bill_id: this.$route.params.id,
                         user_id: id,
-                        province: nowProvince
+                        province: nowProvince,
+                        freight: this.addForm.freight / 100,
+                        top_freight: this.addForm.hasTop ? this.addForm.top_freight : undefined
                     });
                     if (this.isPrivate) {
                         sendInfo.private = 1;
@@ -237,6 +245,7 @@ export default {
                             delete sendInfo[key];
                         }
                     }
+                    delete sendInfo.hasTop;
 
                     try {
                         result = await this.addGroupByBillIdAndUserId(sendInfo);

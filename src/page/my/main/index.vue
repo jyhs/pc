@@ -1,7 +1,10 @@
 <template>
     <el-col :span="24" class="normal-user-main-container">
         <el-row>
+            <!--
             <el-col :xs="24" :sm="24" :md="accept==='www'?18:24" :lg="accept==='www'?18:24">
+            -->
+            <el-col :span="24">
                 <div style="padding: 10px">
                     <el-card class="card-height-430 card-flex" style="position: relative">
                         <a href="javascript: void (0);" class="tab-more-button"  @click="handleTabMore">
@@ -92,6 +95,7 @@
                     </el-card>
                 </div>
             </el-col>
+            <!--
             <el-col :xs="24" :sm="24" :md="6" :lg="6" v-if="accept==='www'">
                 <div style="padding: 10px;">
                     <el-card class="card-container card-height-430 card-flex">
@@ -118,7 +122,9 @@
                     </el-card>
                 </div>
             </el-col>
+            -->
         </el-row>
+        <!--
         <el-row v-if="accept==='www'">
             <el-col :xs="24" :sm="24" :md="12" :lg="12">
                 <div style="padding: 10px;">
@@ -199,6 +205,7 @@
                 </div>
             </el-col>
         </el-row>
+        -->
     </el-col>
 </template>
 <script src="./script.js"></script>

@@ -131,9 +131,9 @@ export default {
             this.loading(false);
         },
 
-        async getQrCodeInGroup(group) {
+        getQrCodeInGroup(group) {
             this.qrCodeVisible = true;
-            this.qrCodeUrl = `${API_BASE_PATH}/api/tools/qrCode?id=${group.id}`;
+            this.qrCodeUrl = `${API_BASE_PATH}/api/tools/qrCode?id=${group.id}&random_id=${Math.random()}`;
             this.privateUrl = `${BASE_PRIVATE_PATH}/#/buy/${compile(`${group.id}`)}/page`;
         },
 

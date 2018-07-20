@@ -60,7 +60,6 @@ export default {
         },
 
         handleActions (row, actionType) {
-            console.error(row);
             switch (actionType) {
                 case 'cartEdit':
                     this.$router.push({

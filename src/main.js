@@ -43,7 +43,7 @@ router.beforeEach((to, from, next) => {
 Axios.interceptors.request.use(
     config => {
         let accept = window.location.host.split('.')[0];
-        if (accept.indexOf('localhost') !== -1) {
+        if (accept.indexOf('localhost') !== -1 || accept.indexOf('group') !== -1) {
             accept = 'www';
         }
         //const accept = 'blueocean';

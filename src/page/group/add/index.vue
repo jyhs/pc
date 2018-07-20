@@ -151,6 +151,15 @@
                                 >
                                 </el-date-picker>
                             </el-form-item>
+                            <el-form-item label="运费(%)" prop="freight">
+                                <el-input-number placeholder="请输入运费(%)" v-model="addForm.freight"></el-input-number>
+                            </el-form-item>
+                            <el-form-item label="单品运费封顶" prop="hasTop">
+                                <el-switch on-text="是" off-text="否" v-model="addForm.hasTop"></el-switch>
+                            </el-form-item>
+                            <el-form-item  v-if="addForm.hasTop" label="单品运费封顶额(元)" prop="top_freight">
+                                <el-input-number placeholder="请输入单品运费封顶额(元)" v-model="addForm.top_freight"></el-input-number>
+                            </el-form-item>
                             <el-form-item label="其他信息" prop="description">
                                 <quill-editor v-model="addForm.description" ref="myQuillEditor"
                                               class="editor" :options="editorOption">
@@ -187,9 +196,6 @@
                             </el-form-item>
                             <el-form-item label="支付描述" prop="pay_description" v-if="isExpand">
                                 <el-input type="textarea" placeholder="请输入支付描述" v-model="addForm.pay_description"></el-input>
-                            </el-form-item>
-                            <el-form-item label="运费(%)" prop="freight" v-if="isExpand">
-                                <el-input placeholder="请输入运费(%)" v-model="addForm.freight"></el-input>
                             </el-form-item>
                             <el-form-item label="是否支持闪送" prop="is_flash" v-if="isExpand">
                                 <el-select placeholder="请选择是否闪送" v-model="addForm.is_flash">
