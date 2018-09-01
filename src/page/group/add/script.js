@@ -232,9 +232,10 @@ export default {
                         freight: this.addForm.freight ? this.addForm.freight * 0.01 : '',
                         bill_id: this.$route.params.id,
                         user_id: id,
-                        province: nowProvince,
+                        province: this.currentUser.type=='cjlss'?'china':nowProvince,
                         freight: this.addForm.freight / 100,
-                        top_freight: this.addForm.hasTop ? this.addForm.top_freight : undefined
+                        top_freight: this.addForm.hasTop ? this.addForm.top_freight : undefined,
+                        city:this.currentUser.type=='cjlss'?'china':this.addForm.city
                     });
                     if (this.isPrivate) {
                         sendInfo.private = 1;

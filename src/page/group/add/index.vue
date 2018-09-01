@@ -133,7 +133,7 @@
                             <el-form-item label="联系人手机" prop="phone">
                                 <el-input placeholder="请输入联系人手机" :maxlength="11" v-model="addForm.phone"></el-input>
                             </el-form-item>
-                            <el-form-item label="开团城市" prop="city">
+                            <el-form-item label="开团城市" prop="city" v-if="currentUser.type!=='cjlss'">
                                 <el-select placeholder="请选择城市" v-model="addForm.city">
                                     <el-option
                                             v-for="item in cities" :label="item.value" :value="item.key"
