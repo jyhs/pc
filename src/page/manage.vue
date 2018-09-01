@@ -14,7 +14,7 @@
                         <el-menu-item index="/" v-if="accept==='www'">团购</el-menu-item>
                         <el-menu-item index="/" v-else>订单</el-menu-item>
                         <el-menu-item index="/ency/list">百科</el-menu-item>
-                        <el-menu-item index="/bill/add" v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='pfs'||currentUser.type==='lss'">传单</el-menu-item>
+                        <el-menu-item index="/bill/add" v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='pfs'||currentUser.type==='lss'||currentUser.type==='cjlss'">传单</el-menu-item>
                         <!--
                         <el-menu-item index="/main/page">主页</el-menu-item>
                         -->
