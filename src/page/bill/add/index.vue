@@ -2,7 +2,7 @@
     <div class="bill-add-container">
         <el-card
                 class="card-container" style="padding-bottom: 100px"
-                v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='pfs'">
+                v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='cjlss'||currentUser.type==='pfs'">
             <div slot="header" class="card-header">
                 <el-row style="width: 100%">
                     <el-col :xs="24" :sm="24" :md="8" :lg="8">
@@ -21,7 +21,7 @@
                                 <el-button
                                         icon="coral-light"
                                         @click="submitUploadBySeller"
-                                        v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='pfs'"
+                                        v-if="currentUser.type==='tggly'||currentUser.type==='cjyy'||currentUser.type==='lss'||currentUser.type==='cjlss'||currentUser.type==='pfs'"
                                 >
                                     一键开团
                                 </el-button>

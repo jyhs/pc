@@ -188,7 +188,7 @@ export default {
             this.addForm.phone = this.currentUser.phone;
             if (this.currentUser.type === 'cjlss') {
                 this.addForm.scope = 'china';
-            }  else {
+            } else {
                 this.addForm.scope = 'province';
             }
             const {id} = this.$route.params;
@@ -246,10 +246,10 @@ export default {
                         pickup_date: this.addForm.pickup_date ? formatDateTimeParam(this.addForm.pickup_date) : '',
                         bill_id: this.$route.params.id,
                         user_id: id,
-                        province: this.addForm.scope === 'china' ? 'china' : nowProvince,
-                        city: this.addForm.scope === 'china' ? 'china' : this.addForm.city,
+                        province: this.currentUser.type === 'cjlss' ? 'china' : nowProvince,
+                        city: this.currentUser.type === 'cjlss' ? 'china' : this.addForm.city,
                         freight: this.addForm.freight / 100,
-                        top_freight: this.addForm.hasTop ? this.addForm.top_freight : undefined
+                        top_freight: this.addForm.hasTop ? this.addForm.top_freight : undefined,
                     });
                     if (this.isPrivate) {
                         sendInfo.private = 1;

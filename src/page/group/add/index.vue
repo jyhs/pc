@@ -141,7 +141,7 @@
                                     </el-option>
                                 </el-select>
                             </el-form-item>
-                            <el-form-item label="开团城市" prop="city" v-if="addForm.scope==='province'">
+                            <el-form-item label="开团城市" prop="city" v-if="currentUser.type!=='cjlss'&&addForm.scope==='province'">
                                 <el-select placeholder="请选择城市" v-model="addForm.city">
                                     <el-option
                                             v-for="item in cities" :label="item.value" :value="item.key"
