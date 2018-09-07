@@ -1,12 +1,11 @@
 import {mapGetters, mapActions} from 'vuex';
 import {quillEditor} from 'vue-quill-editor';
 import _ from 'lodash';
-import {localStorageHasKey, saveToLocalStorage, getFromLocalStorage,
-    mapKey, formatDateTimeParam} from '@/utils/common';
-import {SMALL_IMAGE_BASE_PATH, Seawater_Pay_Types, Seawater_Yes_No} from '@/constants/index';
+import {localStorageHasKey, saveToLocalStorage, getFromLocalStorage, formatDateTimeParam} from '../../../utils/common';
+import {SMALL_IMAGE_BASE_PATH, Seawater_Pay_Types, Seawater_Yes_No} from '../../../constants/index';
 
 export default {
-    data () {
+    data() {
         const validatePhone = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请输入手机号'));
@@ -23,6 +22,7 @@ export default {
                 contacts: '',
                 phone: '',
                 end_date: '',
+                scope: '',
                 city: '',
                 pickup_date: '',
                 pickup_address: '',
@@ -50,6 +50,9 @@ export default {
                 ],
                 end_date: [
                     {required: true, message: '请选择截止时间'},
+                ],
+                scope: [
+                    {required: true, message: '请选择开团范围', trigger: 'change'},
                 ],
                 city: [
                     {required: true, message: '请选择城市', trigger: 'change'},
@@ -116,6 +119,13 @@ export default {
             payTypes: [],
             yesOrNo: [],
             cities: [],
+            scopes: [{
+                key: 'china',
+                value: '全国'
+            }, {
+                key: 'province',
+                value: '省份'
+            }],
             isExpand: false,
             imagePath: '',
             activeNames: ['info', 'billDetails'],
@@ -151,7 +161,7 @@ export default {
             nowProvince && (this.cities = await this.getCitiesInProvinces({
                 area: nowProvince
             }));
-        } catch(error) {
+        } catch (error) {
             console.error(error);
         }
         this.loading(false);
@@ -176,6 +186,11 @@ export default {
             this.addForm.end_date = this.addedBill.effortDate;
             this.addForm.contacts = this.currentUser.name;
             this.addForm.phone = this.currentUser.phone;
+            if (this.currentUser.type === 'cjlss') {
+                this.addForm.scope = 'china';
+            }  else {
+                this.addForm.scope = 'province';
+            }
             const {id} = this.$route.params;
 
             this.loading(true);
@@ -192,7 +207,7 @@ export default {
             this.isExpand = !this.isExpand;
         },
 
-        async handleDetailImageShow (detail) {
+        async handleDetailImageShow(detail) {
             if (!detail['material_id'] || !this.preDetail) {
                 this.preDetail = detail;
                 this.imagePath = require('../../../assets/svg/default_detail.svg');
@@ -229,10 +244,10 @@ export default {
                     const sendInfo = _.extend({}, this.addForm, {
                         end_date: this.addForm.end_date ? formatDateTimeParam(this.addForm.end_date) : '',
                         pickup_date: this.addForm.pickup_date ? formatDateTimeParam(this.addForm.pickup_date) : '',
-                        freight: this.addForm.freight ? this.addForm.freight * 0.01 : '',
                         bill_id: this.$route.params.id,
                         user_id: id,
-                        province: nowProvince,
+                        province: this.addForm.scope === 'china' ? 'china' : nowProvince,
+                        city: this.addForm.scope === 'china' ? 'china' : this.addForm.city,
                         freight: this.addForm.freight / 100,
                         top_freight: this.addForm.hasTop ? this.addForm.top_freight : undefined
                     });
@@ -245,6 +260,7 @@ export default {
                             delete sendInfo[key];
                         }
                     }
+                    delete sendInfo.scope;
                     delete sendInfo.hasTop;
 
                     try {

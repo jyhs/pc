@@ -7,6 +7,7 @@ import {localStorageHasKey, saveToLocalStorage, getFromLocalStorage,
 export default {
     data () {
         return {
+            showType: true,
             searchForm: {
                 name: ''
             },
@@ -98,7 +99,12 @@ export default {
             this.loading(true);
             let result = [];
             try {
-                result = await this.getEncyList({name, type, page: this.page, size: this.size});
+                result = await this.getEncyList({
+                    name,
+                    type,
+                    page: this.page, size: this.size,
+                    classification: this.showType ? 0 : 1
+                });
             } catch (error) {
                 console.error(error);
             }
@@ -118,6 +124,15 @@ export default {
                     children: types
                 });
             }
+        },
+
+        handleShowTypeChange() {
+            this.$nextTick(() => {
+                this.initData({
+                    name: this.searchForm.name,
+                    type: this.selectedTypes
+                });
+            });
         },
 
         handleSearch() {

@@ -6,7 +6,15 @@
                     <el-col :xs="24" :sm="24" :md="8" :lg="8">
                         <div style="line-height: 36px;">
                             <el-icon class="el-icon-coral-list"></el-icon>
-                            <span class="card-title">生物百科</span>
+                            <span class="card-title">{{showType ? '生物' : '器材'}}百科</span>
+                            <el-switch v-model="showType"
+                                       v-if="currentUser.type==='bkgly'"
+                                       on-color="#13ce66"
+                                       off-color="#ff4949"
+                                       on-text="生物"
+                                       off-text="器材"
+                                       @change="handleShowTypeChange"
+                            ></el-switch>
                         </div>
                     </el-col>
                     <el-col :xs="24" :sm="24" :md="16" :lg="16">
